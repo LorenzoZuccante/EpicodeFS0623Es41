@@ -1,6 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import mainReducer from "../reducers";
-import { useEffect } from "react";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import updateFavouritesReducer from "../reducers/updateFavourites";
+import getSearchResultReducer from "../reducers/updateSearch";
+
+const mainReducer = combineReducers({
+    favour: updateFavouritesReducer,
+    search: getSearchResultReducer,
+})
 
 const store = configureStore({
     reducer: mainReducer

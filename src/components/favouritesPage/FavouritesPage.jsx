@@ -1,24 +1,33 @@
 import './FavouritesPage.css'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
-import JobFavourites from '../JobFavourites'
+import { useEffect } from 'react'
+import Job from '../Job'
 import { Link } from 'react-router-dom'
+import { Spinner } from 'react-bootstrap'
 
 const FavouritesPage = () => {
-    const state = useSelector((state) => state.jobsStates)
+    const favouritesList = useSelector((state) => state.favour.favourites)
 
     useEffect(() => {
-        console.log(state)
-      },[state])
+        console.log(favouritesList)
+      },[favouritesList])
 
     return(
         <>
-        <h1>Favourites page | <Link to='/'>Back to search</Link></h1>
-        <Container>
-            {state.favourites.map((job) => {
-                return <JobFavourites key={job._id} data={job} />
-            })}
+        <Container className='mx-auto'>
+            <Row>
+                <Col xs={10} className='mt-3'>
+                    <h1>Favourites page | <Link to='/'>Back to search</Link></h1>
+                </Col>
+            </Row>
+            {favouritesList.length > 0 ? (
+                favouritesList.map((job) => {
+                    return <Job key={job._id} data={job} />
+                })
+            ) : (
+                <Spinner animation="border" className='mt-3'/>
+            )}
         </Container>
         </>
 
